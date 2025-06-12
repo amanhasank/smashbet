@@ -131,8 +131,8 @@ function Dashboard() {
                   <tr key={bet.id}>
                     <td>{bet.Match.tournament}</td>
                     <td>{bet.selectedTeam}</td>
-                    <td>${parseFloat(bet.amount).toFixed(2)}</td>
-                    <td>${parseFloat(bet.potentialWinnings).toFixed(2)}</td>
+                    <td>Rs{parseFloat(bet.amount).toFixed(2)}</td>
+                    <td>Rs{parseFloat(bet.potentialWinnings).toFixed(2)}</td>
                     <td>
                       <span className={`status-badge ${bet.status}`}>
                         {bet.status}
