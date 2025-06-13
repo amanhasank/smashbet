@@ -82,8 +82,9 @@ router.post('/login', [
 
     const { username, password } = req.body;
 
-    // Find user
+    // Find user by username
     const user = await User.findOne({ where: { username } });
+
     if (!user) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }

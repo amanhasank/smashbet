@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import api from '../services/api';
+import { userAPI } from '../services/api';
 import '../styles/theme.css'; // Ensure this has white-green theme
 
 function Leaderboards() {
@@ -12,8 +12,13 @@ function Leaderboards() {
     const fetchLeaderboard = async () => {
       try {
         setLoading(true);
-        const response = await api.get('/users/leaderboard');
-        setUsers(response.data);
+        const response = await userAPI.getLeaderboard();
+        console.log('Leaderboard response:', response);
+        if (response.data && Array.isArray(response.data)) {
+          setUsers(response.data);
+        } else {
+          setError('Invalid response format from server');
+        }
       } catch (err) {
         console.error('Error fetching leaderboard:', err);
         setError('Failed to fetch leaderboard data.');

@@ -1,16 +1,34 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || 'https://0c3f-14-195-8-190.ngrok-free.app/api',
+  baseURL: process.env.REACT_APP_API_URL || 'https://b100-14-195-8-190.ngrok-free.app/api',
   headers: {
-    'Content-Type': 'application/json'
-  }
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'ngrok-skip-browser-warning': 'true'
+  },
+  withCredentials: false,
+  timeout: 10000
 });
 
 // Add a request interceptor to handle errors
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    // Ensure we're getting JSON data
+    if (response.headers['content-type']?.includes('application/json')) {
+      return response;
+    }
+    // If not JSON, try to parse it as JSON
+    try {
+      const jsonData = JSON.parse(response.data);
+      return { ...response, data: jsonData };
+    } catch (e) {
+      console.error('Failed to parse response as JSON:', e);
+      return Promise.reject(new Error('Invalid response format'));
+    }
+  },
   (error) => {
+    console.error('API Error:', error.response?.data || error.message);
     if (error.response?.status === 401) {
       // Handle unauthorized access
       localStorage.removeItem('token');
@@ -73,6 +91,7 @@ export const userAPI = {
   updateProfile: (userData) => api.put('/users/profile', userData),
   getBettingHistory: () => api.get('/users/betting-history'),
   getBalanceHistory: () => api.get('/users/balance-history'),
+  getLeaderboard: () => api.get('/users/leaderboard')
 };
 
 export default api; 

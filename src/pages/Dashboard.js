@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import '../styles/theme.css';
 import { useAuth } from '../context/AuthContext';
-import api from '../services/api';
+import { matchesAPI, betsAPI } from '../services/api';
 import './Dashboard.css';
 
 function Dashboard() {
@@ -16,15 +16,39 @@ function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
+        setError(null);
+
+        // Fetch matches and bets in parallel
         const [matchesRes, betsRes] = await Promise.all([
-          api.get('/matches'),
-          api.get('/bets/my-bets')
+          matchesAPI.getActiveMatches(),
+          betsAPI.getMyBets()
         ]);
-        setMatches(matchesRes.data);
-        setBets(betsRes.data);
+
+        console.log('Matches response:', matchesRes);
+        console.log('Bets response:', betsRes);
+
+        // Handle matches data
+        if (matchesRes.data && Array.isArray(matchesRes.data)) {
+          setMatches(matchesRes.data);
+        } else {
+          console.error('Invalid matches data format:', matchesRes.data);
+          setError('Invalid match data received from server');
+          setMatches([]);
+        }
+
+        // Handle bets data
+        if (betsRes.data && Array.isArray(betsRes.data)) {
+          setBets(betsRes.data);
+        } else {
+          console.error('Invalid bets data format:', betsRes.data);
+          setBets([]);
+        }
       } catch (err) {
-        setError('Failed to fetch data');
         console.error('Error fetching dashboard data:', err);
+        setError('Failed to fetch data. Please try again later.');
+        setMatches([]);
+        setBets([]);
       } finally {
         setLoading(false);
       }
@@ -78,27 +102,27 @@ function Dashboard() {
         <div className="container">
           <div className="row">
             <div className="col-md-3">
-              <div className="stat-card">
+              <div className="stat-card p-3">
                 <h3>Balance</h3>
-                <p className="stat-value">Rs {parseFloat(user.balance).toFixed(2)}</p>
+                <p className="stat-value">Rs {parseFloat(user?.balance || 0).toFixed(2)}</p>
               </div>
             </div>
             <div className="col-md-3">
-              <div className="stat-card">
+              <div className="stat-card p-3">
                 <h3>Total Bets</h3>
-                <p className="stat-value">{user.totalBets}</p>
+                <p className="stat-value">{user?.totalBets || 0}</p>
               </div>
             </div>
             <div className="col-md-3">
-              <div className="stat-card">
+              <div className="stat-card p-3">
                 <h3>Wins</h3>
-                <p className="stat-value">{user.wins}</p>
+                <p className="stat-value">{user?.wins || 0}</p>
               </div>
             </div>
             <div className="col-md-3">
-              <div className="stat-card">
+              <div className="stat-card p-3">
                 <h3>Losses</h3>
-                <p className="stat-value">{user.losses}</p>
+                <p className="stat-value">{user?.losses || 0}</p>
               </div>
             </div>
           </div>
@@ -127,20 +151,26 @@ function Dashboard() {
                 </tr>
               </thead>
               <tbody>
-                {bets.map(bet => (
-                  <tr key={bet.id}>
-                    <td>{bet.Match.tournament}</td>
-                    <td>{bet.selectedTeam}</td>
-                    <td>Rs{parseFloat(bet.amount).toFixed(2)}</td>
-                    <td>Rs{parseFloat(bet.potentialWinnings).toFixed(2)}</td>
-                    <td>
-                      <span className={`status-badge ${bet.status}`}>
-                        {bet.status}
-                      </span>
-                    </td>
-                    <td>{new Date(bet.createdAt).toLocaleDateString()}</td>
+                {bets.length === 0 ? (
+                  <tr>
+                    <td colSpan="6" className="text-center">No bets placed yet</td>
                   </tr>
-                ))}
+                ) : (
+                  bets.map(bet => (
+                    <tr key={bet.id}>
+                      <td>{bet.Match?.tournament || 'N/A'}</td>
+                      <td>{bet.selectedTeam}</td>
+                      <td>Rs{parseFloat(bet.amount).toFixed(2)}</td>
+                      <td>Rs{parseFloat(bet.potentialWinnings).toFixed(2)}</td>
+                      <td>
+                        <span className={`status-badge ${bet.status}`}>
+                          {bet.status}
+                        </span>
+                      </td>
+                      <td>{new Date(bet.createdAt).toLocaleDateString()}</td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>
@@ -164,7 +194,7 @@ function Dashboard() {
             ) : (
               ongoingMatches.map(match => (
                 <div key={match.id} className="col-md-4 mb-4">
-                  <div className="match-card">
+                  <div className="match-card p-3">
                     <h3>{match.tournament}</h3>
                     <div className="teams">
                       <span>{match.team1Name}</span>
@@ -172,14 +202,14 @@ function Dashboard() {
                       <span>{match.team2Name}</span>
                     </div>
                     <p className="date">
-                      {new Date(match.date).toLocaleDateString()}
+                      {new Date(match.createdAt).toLocaleDateString()}
                     </p>
-                    <button 
-                      className="btn btn-primary"
-                      onClick={() => window.location.href = `/match/${match.id}`}
+                    <Link 
+                      to={`/match/${match.id}`}
+                      className="btn btn-primary w-100"
                     >
                       Place Bet
-                    </button>
+                    </Link>
                   </div>
                 </div>
               ))
@@ -205,7 +235,7 @@ function Dashboard() {
             ) : (
               upcomingMatches.map(match => (
                 <div key={match.id} className="col-md-4 mb-4">
-                  <div className="match-card">
+                  <div className="match-card p-3">
                     <h3>{match.tournament}</h3>
                     <div className="teams">
                       <span>{match.team1Name}</span>
@@ -213,14 +243,14 @@ function Dashboard() {
                       <span>{match.team2Name}</span>
                     </div>
                     <p className="date">
-                      {new Date(match.date).toLocaleDateString()}
+                      {new Date(match.createdAt).toLocaleDateString()}
                     </p>
-                    <button 
-                      className="btn btn-primary"
-                      onClick={() => window.location.href = `/match/${match.id}`}
+                    <Link 
+                      to={`/match/${match.id}`}
+                      className="btn btn-primary w-100"
                     >
                       Place Bet
-                    </button>
+                    </Link>
                   </div>
                 </div>
               ))

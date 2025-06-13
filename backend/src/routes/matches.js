@@ -4,11 +4,26 @@ const { Match, User, Bet } = require('../models');
 const { auth, adminAuth } = require('../middleware/auth');
 const { body, validationResult } = require('express-validator');
 
+// Get active matches (ongoing and upcoming)
+router.get('/active', async (req, res) => {
+  try {
+    const matches = await Match.findAll({
+      where: {
+        status: ['ongoing', 'upcoming']
+      },
+      order: [['createdAt', 'DESC']]
+    });
+    res.json(matches);
+  } catch (error) {
+    console.error('Error fetching active matches:', error);
+    res.status(500).json({ error: 'Failed to fetch active matches' });
+  }
+});
+
 // Get all matches (public, now includes upcoming, ongoing, completed)
 router.get('/', async (req, res) => {
   try {
     const matches = await Match.findAll({
-      // No includes needed for team1Name, team2Name, or winner as they are direct string fields
       order: [['createdAt', 'DESC']]
     });
     res.json(matches);
