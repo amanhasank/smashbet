@@ -38,9 +38,9 @@ router.post('/', [
       return res.status(400).json({ error: 'Insufficient balance' });
     }
 
-    console.log(`Match status: ${match.status}, isBettingOpen: ${match.isBettingOpen}`);
-    if (match.status === 'completed' || !match.isBettingOpen) {
-      return res.status(400).json({ error: 'Betting is not open for this match' });
+    console.log(`Match status: ${match.status}, isPredictionOpen: ${match.isPredictionOpen}`);
+    if (match.status === 'completed' || !match.isPredictionOpen) {
+      return res.status(400).json({ error: 'Prediction is not open for this match' });
     }
 
     // Calculate potential winnings (assuming 2x payout for simplicity for now)

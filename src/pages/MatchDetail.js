@@ -147,7 +147,7 @@ function MatchDetail() {
                       <button
                         className="btn btn-primary w-100"
                         onClick={handlePlaceBet}
-                        disabled={!match.isBettingOpen}
+                        disabled={!match.isPredictionOpen}
                       >
                         Place Bet
                       </button>
@@ -158,8 +158,8 @@ function MatchDetail() {
             )}
 
             <div className="text-center mt-4">
-              <span className={`badge bg-${match.isBettingOpen ? 'success' : 'secondary'}`}>
-                {match.isBettingOpen ? 'Betting Open' : 'Betting Closed'}
+              <span className={`badge bg-${match.isPredictionOpen ? 'success' : 'secondary'}`}>
+                {match.isPredictionOpen ? 'Prediction Open' : 'Prediction Closed'}
               </span>
             </div>
           </div>

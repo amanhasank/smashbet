@@ -88,7 +88,7 @@ router.post('/matches/:id/process-payouts', adminAuth, async (req, res) => {
       // Since 'winner' is now a team name string and Match no longer has foreign keys to Teams,
       // and Bet model now stores 'selectedTeam' as a string,
       // the current bet processing logic in the Bet route needs to be updated to match winning team names.
-      // For now, removing this section to prevent errors, but it requires a new implementation based on your betting logic.
+      // For now, removing this section to prevent errors, but it requires a new implementation based on your Prediction logic.
       // if (bet.teamId === match.winnerId) {
       //   // Winner - double the bet amount
       //   const payout = bet.amount * 2;
@@ -172,7 +172,7 @@ router.post('/matches', [
   body('team2Name').trim().notEmpty().withMessage('Team 2 name is required'),
   body('tournament').optional().trim(),
   body('status').optional().isIn(['upcoming', 'ongoing', 'completed']).withMessage('Invalid status'),
-  body('isBettingOpen').optional().isBoolean().withMessage('isBettingOpen must be a boolean'),
+  body('isPredictionOpen').optional().isBoolean().withMessage('isPredictionOpen must be a boolean'),
 ], async (req, res) => {
   console.log('Received POST request for /admin/matches');
   const errors = validationResult(req);
@@ -181,7 +181,7 @@ router.post('/matches', [
   }
 
   try {
-    const { team1Name, team2Name, tournament, status, isBettingOpen } = req.body;
+    const { team1Name, team2Name, tournament, status, isPredictionOpen } = req.body;
 
     if (team1Name === team2Name) {
       return res.status(400).json({ error: 'Teams must be different' });
@@ -192,7 +192,7 @@ router.post('/matches', [
       team2Name,
       tournament,
       status: status || 'ongoing',
-      isBettingOpen: isBettingOpen !== undefined ? isBettingOpen : true,
+      isPredictionOpen: isPredictionOpen !== undefined ? isPredictionOpen : true,
     });
 
     res.status(201).json(match);

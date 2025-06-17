@@ -64,7 +64,7 @@ export const matchesAPI = {
   getActiveMatches: () => api.get('/matches/active'),
   getMatch: (id) => api.get(`/matches/${id}`),
   createMatch: (matchData) => api.post('/matches', matchData),
-  closeBetting: (matchId) => api.post(`/matches/${matchId}/close-betting`),
+  closePrediction: (matchId) => api.post(`/matches/${matchId}/close-Prediction`),
   declareWinner: (matchId, winnerId) => 
     api.post(`/matches/${matchId}/declare-winner`, { winnerId }),
 };
@@ -89,7 +89,7 @@ export const adminAPI = {
 // User API calls
 export const userAPI = {
   updateProfile: (userData) => api.put('/users/profile', userData),
-  getBettingHistory: () => api.get('/users/betting-history'),
+  getPredictionHistory: () => api.get('/users/Prediction-history'),
   getBalanceHistory: () => api.get('/users/balance-history'),
   getLeaderboard: () => api.get('/users/leaderboard')
 };

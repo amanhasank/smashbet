@@ -69,7 +69,7 @@ router.post('/admin/matches', [
   body('team2Name').trim().notEmpty().withMessage('Team 2 name is required'),
   body('tournament').optional().trim(), // Tournament is optional
   body('status').optional().isIn(['upcoming', 'ongoing', 'completed']).withMessage('Invalid status'),
-  body('isBettingOpen').optional().isBoolean().withMessage('isBettingOpen must be a boolean'),
+  body('isPredictionOpen').optional().isBoolean().withMessage('isPredictionOpen must be a boolean'),
 ], async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -77,7 +77,7 @@ router.post('/admin/matches', [
   }
 
   try {
-    const { team1Name, team2Name, tournament, status, isBettingOpen } = req.body;
+    const { team1Name, team2Name, tournament, status, isPredictionOpen } = req.body;
 
     if (team1Name === team2Name) {
       return res.status(400).json({ error: 'Teams must be different' });
@@ -88,7 +88,7 @@ router.post('/admin/matches', [
       team2Name,
       tournament,
       status: status || 'upcoming',
-      isBettingOpen: isBettingOpen !== undefined ? isBettingOpen : true,
+      isPredictionOpen: isPredictionOpen !== undefined ? isPredictionOpen : true,
       // Date will be automatically set by defaultValue: DataTypes.NOW in model
     });
 
@@ -116,7 +116,7 @@ router.put('/admin/matches/:id', adminAuth, async (req, res) => {
 
     const updateFields = { status };
     if (status === 'ongoing') {
-      updateFields.isBettingOpen = true; // Open betting when status is ongoing
+      updateFields.isPredictionOpen = true; // Open Prediction when status is ongoing
     }
 
     await match.update(updateFields);

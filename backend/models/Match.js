@@ -34,7 +34,7 @@ module.exports = (sequelize) => {
       allowNull: false,
       defaultValue: 'upcoming',
     },
-    isBettingOpen: {
+    isPredictionOpen: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: true,

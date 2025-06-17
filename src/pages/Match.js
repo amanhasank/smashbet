@@ -21,7 +21,7 @@ function Match() {
 
   const handleBet = (e) => {
     e.preventDefault();
-    // TODO: Implement betting logic
+    // TODO: Implement Prediction logic
     console.log('Bet placed:', {
       matchId: id,
       player: selectedPlayer,

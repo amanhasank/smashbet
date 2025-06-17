@@ -49,7 +49,7 @@ function Matches() {
         selectedTeam,
         amount
       });
-      // Refresh matches to update betting status
+      // Refresh matches to update Prediction status
       fetchMatches();
     } catch (err) {
       console.error('Error placing bet:', err);
@@ -108,7 +108,7 @@ function Matches() {
                         <button
                           className="btn btn-outline-primary"
                           onClick={() => handlePlaceBet(match.id, match.team1Name, 10)}
-                          disabled={!match.isBettingOpen}
+                          disabled={!match.isPredictionOpen}
                         >
                           Bet on {match.team1Name}
                         </button>
@@ -119,15 +119,15 @@ function Matches() {
                         <button
                           className="btn btn-outline-primary"
                           onClick={() => handlePlaceBet(match.id, match.team2Name, 10)}
-                          disabled={!match.isBettingOpen}
+                          disabled={!match.isPredictionOpen}
                         >
                           Bet on {match.team2Name}
                         </button>
                       </div>
                     </div>
                     <div className="text-center">
-                      <span className={`badge bg-${match.isBettingOpen ? 'success' : 'secondary'}`}>
-                        {match.isBettingOpen ? 'Betting Open' : 'Betting Closed'}
+                      <span className={`badge bg-${match.isPredictionOpen ? 'success' : 'secondary'}`}>
+                        {match.isPredictionOpen ? 'Prediction Open' : 'Prediction Closed'}
                       </span>
                     </div>
                   </div>
@@ -156,7 +156,7 @@ function Matches() {
                         <button
                           className="btn btn-outline-primary"
                           onClick={() => handlePlaceBet(match.id, match.team1Name, 10)}
-                          disabled={!match.isBettingOpen}
+                          disabled={!match.isPredictionOpen}
                         >
                           Bet on {match.team1Name}
                         </button>
@@ -167,15 +167,15 @@ function Matches() {
                         <button
                           className="btn btn-outline-primary"
                           onClick={() => handlePlaceBet(match.id, match.team2Name, 10)}
-                          disabled={!match.isBettingOpen}
+                          disabled={!match.isPredictionOpen}
                         >
                           Bet on {match.team2Name}
                         </button>
                       </div>
                     </div>
                     <div className="text-center">
-                      <span className={`badge bg-${match.isBettingOpen ? 'success' : 'secondary'}`}>
-                        {match.isBettingOpen ? 'Betting Open' : 'Betting Closed'}
+                      <span className={`badge bg-${match.isPredictionOpen ? 'success' : 'secondary'}`}>
+                        {match.isPredictionOpen ? 'Prediction Open' : 'Prediction Closed'}
                       </span>
                     </div>
                   </div>

@@ -11,7 +11,7 @@ function Home() {
     {
       image: '/img1.jpg',
       title: 'Welcome to SmashBet',
-      description: 'Your Ultimate Badminton Betting Platform'
+      description: 'Your Ultimate Badminton Prediction Platform'
     },
     {
       image: '/img2.jpg',
@@ -92,9 +92,9 @@ function Home() {
                 whileInView={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.8, type: "spring", stiffness: 100 }}
               >
-                <h1 className="display-2 mb-4">Start Your Betting Journey</h1>
+                <h1 className="display-2 mb-4">Start Your Prediction Journey</h1>
                 <p className="lead mb-5">
-                  Join thousands of badminton enthusiasts and experience the thrill of live betting
+                  Join thousands of badminton enthusiasts and experience the thrill of live Prediction
                 </p>
                 <motion.div
                   whileHover={{ scale: 1.1, rotate: 2 }}
@@ -136,7 +136,7 @@ function Home() {
                   >
                     🎯
                   </motion.div>
-                  <h3 className="card-title">Live Betting</h3>
+                  <h3 className="card-title">Live Prediction</h3>
                   <p className="card-text">Place bets on ongoing matches with real-time odds updates</p>
                 </div>
               </div>
@@ -203,7 +203,7 @@ function Home() {
                   transition={{ duration: 0.5, delay: 0.1 }}
                   className="mb-4"
                 >
-                  Welcome to the ultimate Badminton Betting Tournament! Here's how the game goes:
+                  Welcome to the ultimate Badminton Prediction Tournament! Here's how the game goes:
                 </motion.p>
 
                 <motion.h3
@@ -359,7 +359,7 @@ function Home() {
             >
               <h4 className="text-white mb-3">About SmashBet</h4>
               <p className="text-light">
-                Your trusted platform for badminton betting. We provide the best odds and a secure betting environment.
+                Your trusted platform for badminton Prediction. We provide the best odds and a secure Prediction environment.
               </p>
             </motion.div>
             <motion.div 
@@ -385,7 +385,7 @@ function Home() {
               <ul className="list-unstyled text-light">
                 <li>Email: support@smashbet.com</li>
                 <li>Phone: +1 234 567 890</li>
-                <li>Address: 123 Betting Street, Sports City</li>
+                <li>Address: 123 Prediction Street, Sports City</li>
               </ul>
             </motion.div>
           </div>

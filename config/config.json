@@ -2,7 +2,7 @@
   "development": {
     "username": "postgres",
     "password": "postgres",
-    "database": "badminton_betting",
+    "database": "badminton_Prediction",
     "host": "localhost",
     "port": "5432",
     "dialect": "postgres"
@@ -10,7 +10,7 @@
   "test": {
     "username": "postgres",
     "password": "postgres",
-    "database": "badminton_betting_test",
+    "database": "badminton_Prediction_test",
     "host": "localhost",
     "port": "5432",
     "dialect": "postgres"
@@ -18,7 +18,7 @@
   "production": {
     "username": "postgres",
     "password": "postgres",
-    "database": "badminton_betting_production",
+    "database": "badminton_Prediction_production",
     "host": "localhost",
     "port": "5432",
     "dialect": "postgres"

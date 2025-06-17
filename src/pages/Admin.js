@@ -16,7 +16,7 @@ function Admin() {
     team1: '',
     team2: '',
     tournament: '',
-    isBettingOpen: true
+    isPredictionOpen: true
   });
 
   // Edit match state

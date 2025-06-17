@@ -35,7 +35,7 @@ router.get('/admin', isAdmin, async (req, res) => {
 // Create a new match (admin only)
 router.post('/admin/matches', isAdmin, async (req, res) => {
   try {
-    const { team1Name, team2Name, tournament, status, isBettingOpen } = req.body;
+    const { team1Name, team2Name, tournament, status, isPredictionOpen } = req.body;
 
     if (!team1Name || !team2Name) {
       return res.status(400).json({ error: 'Team 1 name and Team 2 name are required' });
@@ -50,7 +50,7 @@ router.post('/admin/matches', isAdmin, async (req, res) => {
       team2Name,
       tournament: tournament || null, // Allow tournament to be optional
       status: status || 'upcoming',
-      isBettingOpen: isBettingOpen !== undefined ? isBettingOpen : true,
+      isPredictionOpen: isPredictionOpen !== undefined ? isPredictionOpen : true,
     });
 
     // No includes needed as team names are direct fields
@@ -117,7 +117,7 @@ router.put('/admin/matches/:id/result', isAdmin, async (req, res) => {
     // Since 'winner' is now a team name string and Match no longer has 'team1Id'/'team2Id' foreign keys,
     // the current bet processing logic is fundamentally broken. You will need a way to link bets
     // (which are likely tied to User IDs or Team IDs if you introduce a Team model later) to the winning team name.
-    // For now, I'm removing this section to prevent errors, but it requires a new implementation based on your betting logic.
+    // For now, I'm removing this section to prevent errors, but it requires a new implementation based on your Prediction logic.
     // await models.sequelize.transaction(async (t) => {
     //   // ... (original bet processing logic, adapted to new model)
     // });

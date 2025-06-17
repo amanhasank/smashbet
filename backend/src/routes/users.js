@@ -79,8 +79,8 @@ router.put('/profile', [
   }
 });
 
-// Get user's betting history
-router.get('/betting-history', auth, async (req, res) => {
+// Get user's Prediction history
+router.get('/Prediction-history', auth, async (req, res) => {
   try {
     const bets = await Bet.findAll({
       where: { userId: req.user.id },
@@ -98,7 +98,7 @@ router.get('/betting-history', auth, async (req, res) => {
       order: [['createdAt', 'DESC']]
     });
 
-    // Calculate betting statistics
+    // Calculate Prediction statistics
     const stats = {
       totalBets: bets.length,
       wonBets: bets.filter(bet => bet.status === 'won').length,
@@ -117,7 +117,7 @@ router.get('/betting-history', auth, async (req, res) => {
       stats
     });
   } catch (error) {
-    res.status(500).json({ error: 'Error fetching betting history' });
+    res.status(500).json({ error: 'Error fetching Prediction history' });
   }
 });
 

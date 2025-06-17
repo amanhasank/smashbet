@@ -1,7 +1,7 @@
 {
-  "name": "badminton-betting-backend",
+  "name": "badminton-Prediction-backend",
   "version": "1.0.0",
-  "description": "Backend for Badminton Tournament Betting Platform",
+  "description": "Backend for Badminton Tournament Prediction Platform",
   "main": "src/app.js",
   "scripts": {
     "start": "node src/app.js",
@@ -10,7 +10,7 @@
   },
   "keywords": [
     "badminton",
-    "betting",
+    "Prediction",
     "tournament",
     "express",
     "node"

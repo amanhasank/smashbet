@@ -32,7 +32,7 @@ const Match = sequelize.define('Match', {
     type: DataTypes.ENUM('upcoming', 'ongoing', 'completed'),
     defaultValue: 'upcoming'
   },
-  isBettingOpen: {
+  isPredictionOpen: {
     type: DataTypes.BOOLEAN,
     defaultValue: true
   }

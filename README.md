@@ -1,4 +1,4 @@
-# 🏸 SmashBet - Badminton Tournament Betting Platform
+# 🏸 SmashBet - Badminton Tournament Prediction Platform
 
 ![SmashBet Banner](https://smashbet-ten.vercel.app/static/media/banner.7c3b8a9f.png)
 
@@ -6,7 +6,7 @@
 Visit our live application: [SmashBet](https://smashbet-ten.vercel.app/login)
 
 ## 📝 Overview
-SmashBet is an innovative betting platform specifically designed for badminton tournaments. It allows users to place bets on ongoing matches, track their betting history, and compete on leaderboards.
+SmashBet is an innovative Prediction platform specifically designed for badminton tournaments. It allows users to place bets on ongoing matches, track their Prediction history, and compete on leaderboards.
 
 ## ✨ Key Features
 
@@ -18,11 +18,11 @@ SmashBet is an innovative betting platform specifically designed for badminton t
 
 - **Dashboard**
   - Real-time balance tracking
-  - Betting statistics (Total bets, Wins, Losses)
+  - Prediction statistics (Total bets, Wins, Losses)
   - Active and upcoming matches display
-  - Personal betting history
+  - Personal Prediction history
 
-- **Match Betting**
+- **Match Prediction**
   - Place bets on ongoing matches
   - View match details and odds
   - Track bet status (Pending/Won/Lost)
@@ -45,7 +45,7 @@ SmashBet is an innovative betting platform specifically designed for badminton t
   - View all users
   - Monitor user activities
   - Manage user balances
-  - Track betting patterns
+  - Track Prediction patterns
 
 ## 🛠️ Technical Stack
 
@@ -84,14 +84,14 @@ SmashBet is an innovative betting platform specifically designed for badminton t
 
 ### Backend Setup
 1. Install PostgreSQL locally
-2. Create a database named `badminton_betting`
+2. Create a database named `badminton_Prediction`
 3. Install dependencies:
    ```bash
    npm install
    ```
 4. Create a `.env` file with:
    ```
-   DATABASE_URL=postgres://postgres:postgres@localhost:5432/badminton_betting
+   DATABASE_URL=postgres://postgres:postgres@localhost:5432/badminton_Prediction
    JWT_SECRET=your_secret_key
    ```
 5. Start the server:
